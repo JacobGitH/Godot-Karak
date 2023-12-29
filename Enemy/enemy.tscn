@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://bd853apfq6xg8"]
+
+[ext_resource type="Texture2D" uid="uid://u0m7fqrq5f2e" path="res://Art/Sprites/Bamboo.png" id="1_27tfk"]
+
+[node name="Enemy" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_27tfk")
+hframes = 4
+vframes = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]

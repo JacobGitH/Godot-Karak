@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://bsml8nrrvd5cf"]
+[gd_scene load_steps=8 format=3 uid="uid://bsml8nrrvd5cf"]
 
+[ext_resource type="Script" path="res://World/SceneManager.cs" id="1_p0qnq"]
 [ext_resource type="Texture2D" uid="uid://gm85qjxjr5if" path="res://Art/Tiles/tile.set..png" id="1_prp2c"]
+[ext_resource type="PackedScene" uid="uid://cx1gvmubxkniv" path="res://Player/PlayerScene.tscn" id="2_jp1gb"]
 [ext_resource type="Script" path="res://Scripts/TileMap.cs" id="2_skse5"]
-[ext_resource type="PackedScene" uid="uid://cx1gvmubxkniv" path="res://Player/PlayerScene.tscn" id="2_xgv1k"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c2bg1"]
 texture = ExtResource("1_prp2c")
@@ -303,6 +304,8 @@ sources/0 = SubResource("TileSetAtlasSource_c2bg1")
 sources/1 = SubResource("TileSetAtlasSource_7y7kh")
 
 [node name="World" type="Node2D"]
+script = ExtResource("1_p0qnq")
+playerScene = ExtResource("2_jp1gb")
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_pxv6a")
@@ -315,8 +318,10 @@ layer_2/name = "TileLayerHover"
 layer_2/tile_data = PackedInt32Array()
 script = ExtResource("2_skse5")
 
-[node name="PlayerScene" parent="." instance=ExtResource("2_xgv1k")]
+[node name="Spawns" type="Node2D" parent="."]
+
+[node name="0" type="Node2D" parent="Spawns" groups=["PlayerSpawnPoints"]]
 position = Vector2(8, 8)
 
-[node name="Camera2D" type="Camera2D" parent="PlayerScene"]
-zoom = Vector2(2, 2)
+[node name="1" type="Node2D" parent="Spawns" groups=["PlayerSpawnPoints"]]
+position = Vector2(24, 24)

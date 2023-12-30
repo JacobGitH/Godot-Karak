@@ -29,16 +29,22 @@ public partial class Player : CharacterBody2D
 
 	public override void _Ready()
 	{
-		tileMap = GetNode<TileMap>("../TileMap");
-		y = rand.Next(0, 10);
+		GetNode<MultiplayerSynchronizer>("MultiplayerSynchronizer").SetMultiplayerAuthority(int.Parse(this.Name));
+		if (GetNode<MultiplayerSynchronizer>("MultiplayerSynchronizer").GetMultiplayerAuthority() == Multiplayer.GetUniqueId())
+		{
+			tileMap = GetNode<TileMap>("../TileMap");
+			y = rand.Next(0, 10);
+		}
 
 	}
 
 	public override void _PhysicsProcess(double _delta)
 	{
-
-		Movement();
-		TilePlacement();
+		if (GetNode<MultiplayerSynchronizer>("MultiplayerSynchronizer").GetMultiplayerAuthority() == Multiplayer.GetUniqueId())
+		{
+			Movement();
+			TilePlacement();
+		}
 	}
 
 	#region PlayerMovement

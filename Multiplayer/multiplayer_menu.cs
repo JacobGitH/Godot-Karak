@@ -30,6 +30,7 @@ public partial class multiplayer_menu : Control
 	private void ConnectedToServer()
 	{
 		GD.Print("Connected to server");
+		RpcId(1, "SendPlayerInformation", GetNode<LineEdit>("LineEdit").Text, Multiplayer.GetUniqueId());
 	}
 
 	//runs on all peers
@@ -56,6 +57,7 @@ public partial class multiplayer_menu : Control
 		peer.Host.Compress(ENetConnection.CompressionMode.RangeCoder);
 		Multiplayer.MultiplayerPeer = peer;
 		GD.Print("Waiting For Players");
+		SendPlayerInformation(GetNode<LineEdit>("LineEdit").Text, 1);
 	}
 
 	public void OnJoinButtonDown()
@@ -69,10 +71,43 @@ public partial class multiplayer_menu : Control
 
 	public void OnStartButtonDown()
 	{
+		Rpc("StartGame");
+	}
+
+	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
+	private void StartGame()
+	{
+		foreach (var item in GameManager.Players)
+		{
+			GD.Print(item.Name + "is Playing");
+		}
 		var scene = ResourceLoader.Load<PackedScene>("res://World/world.tscn").Instantiate<Node2D>();
 		GetTree().Root.AddChild(scene);
 		this.Hide();
 	}
 
+	[Rpc(MultiplayerApi.RpcMode.AnyPeer)]
+	private void SendPlayerInformation(string name, int id)
+	{
+		PlayerInfo playerInfo = new PlayerInfo()
+		{
+			Name = name,
+			Id = id
+		};
+
+		if (!GameManager.Players.Contains(playerInfo))
+		{
+			GameManager.Players.Add(playerInfo);
+		}
+
+		if (Multiplayer.IsServer())
+		{
+			foreach (var item in GameManager.Players)
+			{
+				Rpc("SendPlayerInformation", item.Name, item.Id);
+			}
+		}
+
+	}
 
 }

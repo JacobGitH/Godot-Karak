@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://bp734r68kvsep"]
+[gd_scene load_steps=2 format=3 uid="uid://bp734r68kvsep"]
+
+[ext_resource type="Script" path="res://Multiplayer/multiplayer_menu.cs" id="1_7ptfi"]
 
 [node name="MultiplayerMenu" type="Control"]
 layout_mode = 3
@@ -7,6 +9,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_7ptfi")
 
 [node name="Join" type="Button" parent="."]
 layout_mode = 0
@@ -31,3 +34,23 @@ offset_top = 37.0
 offset_right = 751.0
 offset_bottom = 96.0
 text = "START"
+
+[node name="LineEdit" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 179.0
+offset_top = 127.0
+offset_right = 752.0
+offset_bottom = 158.0
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 113.0
+offset_top = 131.0
+offset_right = 177.0
+offset_bottom = 154.0
+text = "Name
+"
+
+[connection signal="button_down" from="Join" to="." method="OnJoinButtonDown"]
+[connection signal="button_down" from="Host" to="." method="OnHostButtonDown"]
+[connection signal="button_down" from="Start" to="." method="OnStartButtonDown"]

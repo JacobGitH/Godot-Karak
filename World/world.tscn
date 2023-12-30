@@ -325,3 +325,6 @@ position = Vector2(8, 8)
 
 [node name="1" type="Node2D" parent="Spawns" groups=["PlayerSpawnPoints"]]
 position = Vector2(24, 24)
+
+[node name="PlayerScene" parent="." instance=ExtResource("2_jp1gb")]
+position = Vector2(8, 8)

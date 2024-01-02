@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 GameManager="*res://Multiplayer/GameManager.cs"
+CustomSignals="*res://Shared/CustomSignals/CustomSignals.cs"
 
 [dotnet]
 

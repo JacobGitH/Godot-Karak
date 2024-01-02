@@ -21,6 +21,10 @@ public partial class Player : CharacterBody2D
 	Random rand = new Random();
 	Vector2I tileRemember;
 
+	//Signals 
+	private CustomSignals customSignals;
+
+
 	//Godot Classes
 	TileData tileData;
 
@@ -29,13 +33,14 @@ public partial class Player : CharacterBody2D
 
 	public override void _Ready()
 	{
-		//rdy for mult full setup
+		//rdy for multiplayer full setup
 		// GetNode<MultiplayerSynchronizer>("MultiplayerSynchronizer").SetMultiplayerAuthority(int.Parse(this.Name));
 		// if (GetNode<MultiplayerSynchronizer>("MultiplayerSynchronizer").GetMultiplayerAuthority() == Multiplayer.GetUniqueId())
 		// {
+		customSignals = GetNode<CustomSignals>("/root/CustomSignals");
 		tileMap = GetNode<TileMap>("../TileMap");
 		y = rand.Next(0, 10);
-		//}
+		// }
 
 	}
 
@@ -45,7 +50,7 @@ public partial class Player : CharacterBody2D
 		// {
 		Movement();
 		TilePlacement();
-		//}
+		// }
 	}
 
 	#region PlayerMovement
@@ -121,7 +126,7 @@ public partial class Player : CharacterBody2D
 			{
 				if (tileMap.GetCellSourceId(layer, tile) != tileSetId)
 				{
-					tileMap.SetCell(layer, tile, tileSetId, new Vector2I(x, y));
+					customSignals.EmitSignal(nameof(CustomSignals.PlaceTile), layer, tile, tileSetId, new Vector2I(x, y));
 					y = rand.Next(0, 10);
 				}
 			}

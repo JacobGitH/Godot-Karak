@@ -15,4 +15,9 @@ public partial class enemy : StaticBody2D
 	public override void _Process(double delta)
 	{
 	}
+
+	public void OnArea2DBodyEntered(Node2D body)
+	{
+		GD.Print("player entered");
+	}
 }

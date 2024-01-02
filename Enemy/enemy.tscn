@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://bd853apfq6xg8"]
+[gd_scene load_steps=4 format=3 uid="uid://bd853apfq6xg8"]
 
 [ext_resource type="Texture2D" uid="uid://u0m7fqrq5f2e" path="res://Art/Sprites/Bamboo.png" id="1_27tfk"]
 [ext_resource type="Script" path="res://Enemy/enemy.cs" id="1_nsa1f"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ty88t"]
+size = Vector2(32, 32)
 
 [node name="Enemy" type="StaticBody2D"]
 script = ExtResource("1_nsa1f")
@@ -11,4 +14,9 @@ texture = ExtResource("1_27tfk")
 hframes = 4
 vframes = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_ty88t")
+
+[connection signal="body_entered" from="Area2D" to="." method="OnArea2DBodyEntered"]

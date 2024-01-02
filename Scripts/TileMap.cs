@@ -12,9 +12,12 @@ public partial class TileMap : Godot.TileMap
 
 	public override void _Ready()
 	{
-		SetCell(layer, new Vector2I(0, 0), tileId, MainTileCords);
+		//Custom Signals
 		customSignals = GetNode<CustomSignals>("/root/CustomSignals");
 		customSignals.PlaceTile += PlaceTile;
+
+		//starting cell
+		SetCell(layer, new Vector2I(0, 0), tileId, MainTileCords);
 	}
 
 	public override void _Process(double _delta)
@@ -23,9 +26,25 @@ public partial class TileMap : Godot.TileMap
 
 	private void PlaceTile(int layer, Godot.Vector2I tile, int tileSetId, Vector2I tileCords)
 	{
-
 		SetCell(layer, tile, tileSetId, tileCords);
+		CheckTileForEnemySpawn(tile, tileCords);
 	}
 
+	private void CheckTileForEnemySpawn(Vector2I tile, Vector2I tileCords)
+	{
+		if (tileCords.Y > 4 && tileCords.Y < 10)
+		{
+			SpawnEnemyOnTile(tile);
+		}
+	}
+
+	private void SpawnEnemyOnTile(Vector2I tile)
+	{
+		var enemy = GD.Load<PackedScene>("res://Enemy/enemy.tscn");
+		var enemyInst = enemy.Instantiate<Node2D>();
+
+		enemyInst.Position = MapToLocal(tile);
+		AddChild(enemyInst);
+	}
 
 }

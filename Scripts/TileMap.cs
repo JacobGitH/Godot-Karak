@@ -40,7 +40,7 @@ public partial class TileMap : Godot.TileMap
 
 	private void SpawnEnemyOnTile(Vector2I tile)
 	{
-		var enemy = GD.Load<PackedScene>("res://Enemy/enemy.tscn");
+		var enemy = GD.Load<PackedScene>("res://Enemy/Bamboo/bamboo.tscn");
 		var enemyInst = enemy.Instantiate<Node2D>();
 
 		enemyInst.Position = MapToLocal(tile);

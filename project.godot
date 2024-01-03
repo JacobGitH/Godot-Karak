@@ -20,6 +20,13 @@ config/icon="res://icon.svg"
 GameManager="*res://Multiplayer/GameManager.cs"
 CustomSignals="*res://Shared/CustomSignals/CustomSignals.cs"
 
+[display]
+
+window/size/viewport_width=320
+window/size/viewport_height=180
+window/size/window_width_override=1280
+window/size/window_height_override=720
+
 [dotnet]
 
 project/assembly_name="KARAKCS"

@@ -20,6 +20,9 @@ public partial class Player : CharacterBody2D
 	string RoadRight = "RoadRight";
 	Random rand = new Random();
 	Vector2I tileRemember;
+	Godot.Vector2 directionRemember = new Godot.Vector2(0, 0);
+	private int Damage = 0;
+	int Health = 5;
 
 	//Signals 
 	private CustomSignals customSignals;
@@ -30,6 +33,7 @@ public partial class Player : CharacterBody2D
 
 	//Nodes
 	private static TileMap tileMap;
+	private static ui UI;
 
 	public override void _Ready()
 	{
@@ -38,6 +42,7 @@ public partial class Player : CharacterBody2D
 		// if (GetNode<MultiplayerSynchronizer>("MultiplayerSynchronizer").GetMultiplayerAuthority() == Multiplayer.GetUniqueId())
 		// {
 		customSignals = GetNode<CustomSignals>("/root/CustomSignals");
+		UI = GetNode<ui>("CanvasLayer/UI");
 		tileMap = GetNode<TileMap>("../TileMap");
 		y = rand.Next(0, 10);
 		// }
@@ -80,6 +85,7 @@ public partial class Player : CharacterBody2D
 
 		if (playerTile && nextTile)
 		{
+			directionRemember = cords;
 			this.Position += cords;
 		}
 	}
@@ -155,5 +161,23 @@ public partial class Player : CharacterBody2D
 		}
 	}
 	#endregion
+
+	public bool StartCombat(int EnemyHealth)
+	{
+		int diceDamage = rand.Next(1, 13);
+		UI.DisplayText(diceDamage);
+		if (EnemyHealth > diceDamage)
+		{
+			Health--;
+			this.Position += directionRemember * -1;
+			GD.Print("Fight Lost");
+			return false;
+		}
+		else
+		{
+			GD.Print("Fight Won");
+			return true;
+		}
+	}
 
 }

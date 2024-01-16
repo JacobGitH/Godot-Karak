@@ -22,7 +22,8 @@ public partial class Player : CharacterBody2D
 	Vector2I tileRemember;
 	Godot.Vector2 directionRemember = new Godot.Vector2(0, 0);
 	private int Damage = 0;
-	int Health = 5;
+	[Export] int Health = 5;
+	[Export] int Moves = 40;
 
 	//Signals 
 	private CustomSignals customSignals;
@@ -45,6 +46,7 @@ public partial class Player : CharacterBody2D
 		UI = GetNode<ui>("CanvasLayer/UI");
 		tileMap = GetNode<TileMap>("../TileMap");
 		y = rand.Next(0, 10);
+		DisplayMoves();
 		// }
 
 	}
@@ -55,13 +57,17 @@ public partial class Player : CharacterBody2D
 		// {
 		Movement();
 		TilePlacement();
+		DisplayHealth();
 		// }
 	}
 
 	#region PlayerMovement
 	private void Movement()
 	{
-		PlayerMovement();
+		if (Moves > 0)
+		{
+			PlayerMovement();
+		}
 	}
 
 	//GOD HAVE MERCY
@@ -95,18 +101,26 @@ public partial class Player : CharacterBody2D
 		if (Input.IsActionJustPressed("ui_left"))
 		{
 			SideMove(-tileSize, 0, RoadLeft, RoadRight);
+			Moves--;
+			DisplayMoves();
 		}
 		else if (Input.IsActionJustPressed("ui_right"))
 		{
 			SideMove(tileSize, 0, RoadRight, RoadLeft);
+			Moves--;
+			DisplayMoves();
 		}
 		else if (Input.IsActionJustPressed("ui_up"))
 		{
 			SideMove(0, -tileSize, RoadUp, RoadDown);
+			Moves--;
+			DisplayMoves();
 		}
 		else if (Input.IsActionJustPressed("ui_down"))
 		{
 			SideMove(0, tileSize, RoadDown, RoadUp);
+			Moves--;
+			DisplayMoves();
 		}
 	}
 	#endregion
@@ -162,6 +176,8 @@ public partial class Player : CharacterBody2D
 	}
 	#endregion
 
+	#region Combat
+
 	public bool StartCombat(int EnemyHealth)
 	{
 		int diceDamage = rand.Next(1, 13);
@@ -170,6 +186,8 @@ public partial class Player : CharacterBody2D
 		{
 			Health--;
 			this.Position += directionRemember * -1;
+			Moves = 0;
+			Health--;
 			GD.Print("Fight Lost");
 			return false;
 		}
@@ -179,5 +197,21 @@ public partial class Player : CharacterBody2D
 			return true;
 		}
 	}
+	#endregion
+
+	#region UI
+
+	public void DisplayMoves()
+	{
+		UI.DisplayMoves(Moves);
+	}
+
+	public void DisplayHealth()
+	{
+		UI.DisplayHealth(Health);
+	}
+
+	#endregion
+
 
 }

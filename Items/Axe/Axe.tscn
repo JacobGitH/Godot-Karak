@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://csv3ikwtokv74"]
+
+[ext_resource type="PackedScene" uid="uid://dfetypfvotakh" path="res://Items/Item.tscn" id="1_1po1s"]
+[ext_resource type="Texture2D" uid="uid://c5ydk6dip1d3e" path="res://Art/Items/Axe.png" id="2_b5tls"]
+
+[node name="Axe" instance=ExtResource("1_1po1s")]
+
+[node name="Sprite2D" parent="." index="1"]
+position = Vector2(1.78814e-07, 3.57628e-07)
+scale = Vector2(1.45455, 1.23077)
+texture = ExtResource("2_b5tls")

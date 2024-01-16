@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://dfetypfvotakh"]
+
+[ext_resource type="Script" path="res://Items/Item.cs" id="1_a8xqb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dwjn3"]
+size = Vector2(16, 16)
+
+[node name="Item" type="Area2D"]
+script = ExtResource("1_a8xqb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_dwjn3")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]

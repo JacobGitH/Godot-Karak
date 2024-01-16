@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://b8678fmvnp7mt"]
+[gd_scene load_steps=3 format=3 uid="uid://b8678fmvnp7mt"]
 
 [ext_resource type="Script" path="res://Player/UI/ui.cs" id="1_y20ue"]
+[ext_resource type="PackedScene" uid="uid://brqiuysnm44hd" path="res://Player/UI/Inventory.tscn" id="2_yv80x"]
 
 [node name="UI" type="Control"]
 layout_mode = 3
@@ -12,9 +13,45 @@ grow_vertical = 2
 script = ExtResource("1_y20ue")
 
 [node name="TextEdit" type="TextEdit" parent="."]
-layout_mode = 0
-offset_left = 3.0
-offset_top = 3.0
-offset_right = 78.0
-offset_bottom = 39.0
-placeholder_text = "Number"
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.15
+anchor_bottom = 0.156
+offset_right = 1.0
+offset_bottom = -0.0799999
+theme_override_font_sizes/font_size = 11
+
+[node name="NinePatchRect" parent="." instance=ExtResource("2_yv80x")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.694
+anchor_top = 0.517
+anchor_right = 0.997
+anchor_bottom = 0.994
+offset_left = -0.0800018
+offset_top = -0.0600052
+offset_right = -0.039978
+offset_bottom = 0.0800018
+
+[node name="Moves" type="TextEdit" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.167
+anchor_right = 0.153
+anchor_bottom = 0.317
+offset_top = -0.0600014
+offset_right = 0.0399971
+offset_bottom = -0.0600014
+theme_override_font_sizes/font_size = 11
+
+[node name="Health" type="TextEdit" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.328
+anchor_right = 0.159
+anchor_bottom = 0.483
+offset_top = -0.0400009
+offset_right = -1.88
+offset_bottom = 0.0599976
+theme_override_font_sizes/font_size = 11
+editable = false

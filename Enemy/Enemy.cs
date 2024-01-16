@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class Bamboo : StaticBody2D
+public partial class Enemy : StaticBody2D
 {
 
 	[Export] public int Health = 5;
